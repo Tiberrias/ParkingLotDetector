@@ -1,11 +1,44 @@
-﻿namespace ParkingLotDetector.Model
+﻿using System.Collections.Generic;
+
+namespace ParkingLotDetector.Model
 {
     public class SvmLearningSet
     {
-        public int Size;
+        public int Size { get; private set; }
 
-        public double[][] Inputs;
+        public List<double[]> Inputs;
 
-        public int[] Outputs;
+        public List<int> Outputs;
+
+        public SvmLearningSet()
+        {
+            Inputs = new List<double[]>();
+            Outputs = new List<int>();
+        }
+
+        public void Add(ClassifiedImage classifiedImage)
+        {
+            Inputs.Add(classifiedImage.ProcessedImage.Data);
+            Outputs.Add(classifiedImage.Classification);
+            Size++;
+        }
+
+        public double[][] GetInputs()
+        {
+            return Inputs.ToArray();
+        }
+
+        public int[] GetOutputs()
+        {
+            return Outputs.ToArray();
+        }
+
+        public void Clear()
+        {
+            Inputs.Clear();
+            Outputs.Clear();
+            Size = 0;
+        }
+
     }
 }

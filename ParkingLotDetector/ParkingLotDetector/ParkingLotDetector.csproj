@@ -69,15 +69,18 @@
   <ItemGroup>
     <Compile Include="Classification\Interfaces\ISvmClassificationService.cs" />
     <Compile Include="Classification\SvmClassificationService.cs" />
+    <Compile Include="Model\ClassifiedImage.cs" />
     <Compile Include="Model\ProcessedImage.cs" />
     <Compile Include="Model\SvmLearningSet.cs" />
-    <Compile Include="Processing\HistogramService.cs" />
-    <Compile Include="Processing\Interfaces\IHistogramService.cs" />
     <Compile Include="Processing\Interfaces\ILocalBinaryPatternService.cs" />
     <Compile Include="Processing\LocalBinaryPatternService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Interfaces\IImageReaderService.cs" />
     <Compile Include="Services\ImageReaderService.cs" />
+    <Compile Include="Services\Interfaces\ILoggingService.cs" />
+    <Compile Include="Services\Interfaces\IMultiReaderService.cs" />
+    <Compile Include="Services\LoggingService.cs" />
+    <Compile Include="Services\MultiReaderService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
