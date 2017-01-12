@@ -1,16 +1,23 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using Accord.Imaging;
+using Accord.Math;
+using ParkingLotDetector.Model;
 using ParkingLotDetector.Processing.Interfaces;
 
 namespace ParkingLotDetector.Processing
 {
-    class LocalBinaryPatternService : ILocalBinaryPatternService
+    public class LocalBinaryPatternService : ILocalBinaryPatternService
     {
-        public List<double[]> Process(Bitmap bitmap)
+        public ProcessedImage Process(Bitmap bitmap)
         {
-            LocalBinaryPattern localBinaryPattern = new LocalBinaryPattern();
-            return localBinaryPattern.ProcessImage(bitmap);
+            LocalBinaryPattern localBinaryPattern = new LocalBinaryPattern(cellSize: 0);
+
+            localBinaryPattern.ProcessImage(bitmap);
+
+            double[] result = localBinaryPattern.Histograms[0, 0].ToDouble();
+
+            ProcessedImage processedImage = new ProcessedImage() {Data = result};
+            return processedImage;
         }
     }
 }

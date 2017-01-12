@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
+using ParkingLotDetector.Model;
 
 namespace ParkingLotDetector.Processing.Interfaces
 {
     public interface ILocalBinaryPatternService
     {
-        List<double[]> Process(Bitmap bitmap);
+        ProcessedImage Process(Bitmap bitmap);
     }
 }

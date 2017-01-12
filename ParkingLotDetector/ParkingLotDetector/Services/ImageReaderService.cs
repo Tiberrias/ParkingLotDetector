@@ -3,7 +3,7 @@ using ParkingLotDetector.Services.Interfaces;
 
 namespace ParkingLotDetector.Services
 {
-    class ImageReaderService : IImageReaderService
+    public class ImageReaderService : IImageReaderService
     {
         public Bitmap GetBitmap(string filename)
         {

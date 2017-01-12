@@ -67,6 +67,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classification\Interfaces\ISvmClassificationService.cs" />
+    <Compile Include="Classification\SvmClassificationService.cs" />
+    <Compile Include="Model\ProcessedImage.cs" />
+    <Compile Include="Model\SvmLearningSet.cs" />
+    <Compile Include="Processing\HistogramService.cs" />
+    <Compile Include="Processing\Interfaces\IHistogramService.cs" />
     <Compile Include="Processing\Interfaces\ILocalBinaryPatternService.cs" />
     <Compile Include="Processing\LocalBinaryPatternService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -76,6 +82,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Accord.3.4.0\build\Accord.targets" Condition="Exists('..\packages\Accord.3.4.0\build\Accord.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
