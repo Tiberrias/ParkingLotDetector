@@ -38,6 +38,7 @@
             this.buttonClear = new System.Windows.Forms.Button();
             this.labelResult = new System.Windows.Forms.Label();
             this.buttonClassifySet = new System.Windows.Forms.Button();
+            this.backgroundClassifier = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // buttonLearn
@@ -123,6 +124,11 @@
             this.buttonClassifySet.UseVisualStyleBackColor = true;
             this.buttonClassifySet.Click += new System.EventHandler(this.OnClassifySetClick);
             // 
+            // backgroundClassifier
+            // 
+            this.backgroundClassifier.DoWork += new System.ComponentModel.DoWorkEventHandler(this.OnBackgroundClassifierDoWork);
+            this.backgroundClassifier.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.OnBackgroundClassifierRunWorkerCompleted);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -155,6 +161,7 @@
         private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.Label labelResult;
         private System.Windows.Forms.Button buttonClassifySet;
+        private System.ComponentModel.BackgroundWorker backgroundClassifier;
     }
 }
 

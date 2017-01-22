@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingLotDetectorTests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingLotDetector.UI", "ParkingLotDetector.UI\ParkingLotDetector.UI.csproj", "{E848049B-73C0-4C80-B3C2-6D3FCF202040}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StatisticalAnalysis", "StatisticalAnalysis\StatisticalAnalysis.csproj", "{1884E45F-66BC-498E-BD56-9DD5B5A78A90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{E848049B-73C0-4C80-B3C2-6D3FCF202040}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E848049B-73C0-4C80-B3C2-6D3FCF202040}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E848049B-73C0-4C80-B3C2-6D3FCF202040}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1884E45F-66BC-498E-BD56-9DD5B5A78A90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1884E45F-66BC-498E-BD56-9DD5B5A78A90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1884E45F-66BC-498E-BD56-9DD5B5A78A90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1884E45F-66BC-498E-BD56-9DD5B5A78A90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

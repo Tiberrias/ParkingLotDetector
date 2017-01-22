@@ -37,7 +37,7 @@ namespace ParkingLotDetector.Classification
 
             _multiclassSupportVectorMachine = _multiclassSupportVectorLearning.Learn(svmLearningSet.GetInputs(),
                 svmLearningSet.GetOutputs());
-            _loggingService.Log($"Learning SVM completed in {stopwatch.ElapsedMilliseconds} ms. Learning set size: {svmLearningSet.Inputs.Count}, Feature Vector Lenght: {svmLearningSet.Inputs[0].Length}, Achieved {_multiclassSupportVectorMachine.SupportVectorCount} support vectors");
+            _loggingService.Log($"Learning SVM completed in {stopwatch.ElapsedMilliseconds} ms. Learning set size: {svmLearningSet.Inputs.Count}, Feature Vector Length: {svmLearningSet.Inputs[0].Length}, Achieved {_multiclassSupportVectorMachine.SupportVectorCount} support vectors");
             stopwatch.Stop();
         }
 

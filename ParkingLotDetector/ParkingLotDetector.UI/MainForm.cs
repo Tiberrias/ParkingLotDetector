@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using ParkingLotDetector.Classification;
 using ParkingLotDetector.Model;
@@ -21,6 +23,8 @@ namespace ParkingLotDetector.UI
         private ILoggingService _loggingService;
         private SvmLearningSet _svmLearningSet;
         private SvmClassificationService _svmClassificationService;
+
+        delegate void SetTextCallback(string text);
 
         public MainForm()
         {
@@ -43,7 +47,20 @@ namespace ParkingLotDetector.UI
 
         private void OnMessageLogged(string log)
         {
-            logBox.Text += log + Environment.NewLine;
+            AddTextToLogWindow(log + Environment.NewLine);
+        }
+
+        private void AddTextToLogWindow(string text)
+        {
+            if (logBox.InvokeRequired)
+            {
+                SetTextCallback d = AddTextToLogWindow;
+                Invoke(d, text);
+            }
+            else
+            {
+                logBox.Text += text;
+            }
         }
 
         private void OnLearnClick(object sender, System.EventArgs e)
@@ -51,7 +68,7 @@ namespace ParkingLotDetector.UI
             if(_svmLearningSet == null)
                 return;
 
-            _svmClassificationService.Learn(_svmLearningSet);
+            backgroundClassifier.RunWorkerAsync();
         }
 
         private void OnLoadEmptyClick(object sender, System.EventArgs e)
@@ -117,6 +134,7 @@ namespace ParkingLotDetector.UI
         {
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
+                
                 var images = _multiReaderService.ReadAllImagesInFolder(folderBrowserDialog.SelectedPath, ".jpg");
                 _loggingService.Log($"Loaded {images.Count} images");
                 var processedImages =
@@ -124,11 +142,22 @@ namespace ParkingLotDetector.UI
                 _loggingService.Log($"Processed {processedImages.Count} images");
 
                 Stopwatch stopwatch = Stopwatch.StartNew();
+
                 var results = processedImages.Select(x => _svmClassificationService.Classify(x)).ToList();
                 _loggingService.Log($"Performed classification on {results.Count} images in {stopwatch.ElapsedMilliseconds} ms: Classified {results.Count(x => x==0)} unoccupied lots and {results.Count(x => x == 1)} occupied lots.");
                 stopwatch.Stop();
 
             }
+        }
+
+        private void OnBackgroundClassifierDoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            _svmClassificationService.Learn(_svmLearningSet);
+        }
+
+        private void OnBackgroundClassifierRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            
         }
     }
 }
