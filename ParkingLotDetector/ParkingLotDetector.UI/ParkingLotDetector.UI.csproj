@@ -84,6 +84,10 @@
       <Project>{4d9d5631-1a9d-42ce-9a56-83e96b6e0306}</Project>
       <Name>ParkingLotDetector</Name>
     </ProjectReference>
+    <ProjectReference Include="..\StatisticalAnalysis\StatisticalAnalysis.csproj">
+      <Project>{1884e45f-66bc-498e-bd56-9dd5b5a78a90}</Project>
+      <Name>StatisticalAnalysis</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

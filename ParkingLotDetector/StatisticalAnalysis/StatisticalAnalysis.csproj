@@ -30,8 +30,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,13 +45,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\AnalysisResults.cs" />
+    <Compile Include="Model\ClassificationItem.cs" />
+    <Compile Include="Model\ConfusionMatrixCoefficients.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AnalysisService.cs" />
+    <Compile Include="Services\Interfaces\IAnalysisService.cs" />
+    <Compile Include="Services\Interfaces\IMassClassificationService.cs" />
+    <Compile Include="Services\Interfaces\IPathsLoader.cs" />
+    <Compile Include="Services\Interfaces\ITenFoldCrossValidation.cs" />
+    <Compile Include="Services\MassClassificationService.cs" />
+    <Compile Include="Services\PathsLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ParkingLotDetector\ParkingLotDetector.csproj">
       <Project>{4d9d5631-1a9d-42ce-9a56-83e96b6e0306}</Project>
       <Name>ParkingLotDetector</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

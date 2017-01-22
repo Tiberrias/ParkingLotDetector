@@ -6,7 +6,7 @@ using ParkingLotDetector.Processing.Interfaces;
 
 namespace ParkingLotDetector.Processing
 {
-    public class LocalBinaryPatternService : ILocalBinaryPatternService
+    public class LocalBinaryPatternService : IImageProcessingService
     {
         public ProcessedImage Process(Bitmap bitmap)
         {

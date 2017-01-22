@@ -4,7 +4,7 @@ namespace ParkingLotDetector.Model
 {
     public class SvmLearningSet
     {
-        public int Size { get; private set; }
+        public int Size { get; set; }
 
         public List<double[]> Inputs;
 

@@ -9,7 +9,7 @@ namespace ParkingLotDetector.Services
         {
             Image loaded = Image.FromFile(filename);
             Bitmap bitmap = new Bitmap(loaded);
-
+            loaded.Dispose();
             return bitmap;
         }
     }

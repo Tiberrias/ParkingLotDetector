@@ -3,7 +3,7 @@ using ParkingLotDetector.Model;
 
 namespace ParkingLotDetector.Processing.Interfaces
 {
-    public interface ILocalBinaryPatternService
+    public interface IImageProcessingService
     {
         ProcessedImage Process(Bitmap bitmap);
     }

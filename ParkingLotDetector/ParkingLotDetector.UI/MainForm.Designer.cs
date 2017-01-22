@@ -38,7 +38,13 @@
             this.buttonClear = new System.Windows.Forms.Button();
             this.labelResult = new System.Windows.Forms.Label();
             this.buttonClassifySet = new System.Windows.Forms.Button();
-            this.backgroundClassifier = new System.ComponentModel.BackgroundWorker();
+            this.backgroundLearner = new System.ComponentModel.BackgroundWorker();
+            this.buttonStatisticalAnalysis = new System.Windows.Forms.Button();
+            this.backgroundBenchmarkPerformer = new System.ComponentModel.BackgroundWorker();
+            this.numericUpDownLearningSetSize = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownBenchmarkSetSize = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLearningSetSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBenchmarkSetSize)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonLearn
@@ -124,16 +130,57 @@
             this.buttonClassifySet.UseVisualStyleBackColor = true;
             this.buttonClassifySet.Click += new System.EventHandler(this.OnClassifySetClick);
             // 
-            // backgroundClassifier
+            // backgroundLearner
             // 
-            this.backgroundClassifier.DoWork += new System.ComponentModel.DoWorkEventHandler(this.OnBackgroundClassifierDoWork);
-            this.backgroundClassifier.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.OnBackgroundClassifierRunWorkerCompleted);
+            this.backgroundLearner.DoWork += new System.ComponentModel.DoWorkEventHandler(this.OnBackgroundLearnerDoWork);
+            // 
+            // buttonStatisticalAnalysis
+            // 
+            this.buttonStatisticalAnalysis.Location = new System.Drawing.Point(12, 256);
+            this.buttonStatisticalAnalysis.Name = "buttonStatisticalAnalysis";
+            this.buttonStatisticalAnalysis.Size = new System.Drawing.Size(131, 23);
+            this.buttonStatisticalAnalysis.TabIndex = 8;
+            this.buttonStatisticalAnalysis.Text = "Perform Benchmark";
+            this.buttonStatisticalAnalysis.UseVisualStyleBackColor = true;
+            this.buttonStatisticalAnalysis.Click += new System.EventHandler(this.OnButtonStatisticalAnalysisClick);
+            // 
+            // backgroundBenchmarkPerformer
+            // 
+            this.backgroundBenchmarkPerformer.DoWork += new System.ComponentModel.DoWorkEventHandler(this.OnBackgroundBenchmarkPerformerDoWork);
+            this.backgroundBenchmarkPerformer.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.OnBackgroundBenchmarkPerformerRunWorkerCompleted);
+            // 
+            // numericUpDownLearningSetSize
+            // 
+            this.numericUpDownLearningSetSize.Location = new System.Drawing.Point(13, 286);
+            this.numericUpDownLearningSetSize.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericUpDownLearningSetSize.Name = "numericUpDownLearningSetSize";
+            this.numericUpDownLearningSetSize.Size = new System.Drawing.Size(62, 20);
+            this.numericUpDownLearningSetSize.TabIndex = 9;
+            // 
+            // numericUpDownBenchmarkSetSize
+            // 
+            this.numericUpDownBenchmarkSetSize.Location = new System.Drawing.Point(81, 286);
+            this.numericUpDownBenchmarkSetSize.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.numericUpDownBenchmarkSetSize.Name = "numericUpDownBenchmarkSetSize";
+            this.numericUpDownBenchmarkSetSize.Size = new System.Drawing.Size(62, 20);
+            this.numericUpDownBenchmarkSetSize.TabIndex = 10;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(451, 262);
+            this.ClientSize = new System.Drawing.Size(448, 322);
+            this.Controls.Add(this.numericUpDownBenchmarkSetSize);
+            this.Controls.Add(this.numericUpDownLearningSetSize);
+            this.Controls.Add(this.buttonStatisticalAnalysis);
             this.Controls.Add(this.buttonClassifySet);
             this.Controls.Add(this.labelResult);
             this.Controls.Add(this.buttonClear);
@@ -144,6 +191,8 @@
             this.Controls.Add(this.buttonLearn);
             this.Name = "MainForm";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLearningSetSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBenchmarkSetSize)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -161,7 +210,11 @@
         private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.Label labelResult;
         private System.Windows.Forms.Button buttonClassifySet;
-        private System.ComponentModel.BackgroundWorker backgroundClassifier;
+        private System.ComponentModel.BackgroundWorker backgroundLearner;
+        private System.Windows.Forms.Button buttonStatisticalAnalysis;
+        private System.ComponentModel.BackgroundWorker backgroundBenchmarkPerformer;
+        private System.Windows.Forms.NumericUpDown numericUpDownLearningSetSize;
+        private System.Windows.Forms.NumericUpDown numericUpDownBenchmarkSetSize;
     }
 }
 

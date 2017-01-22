@@ -21,7 +21,7 @@ namespace ParkingLotDetector.Classification
         }
 
         public void Learn(SvmLearningSet svmLearningSet)
-        {
+         {
             if (svmLearningSet.Size == 0)
             {
                 _loggingService.Log($"Empty SVM Learning set, unable to learn...");
@@ -43,7 +43,7 @@ namespace ParkingLotDetector.Classification
 
         public void Forget()
         {
-           
+            _multiclassSupportVectorMachine?.Dispose();
         }
 
         public int Classify(ProcessedImage processedImage)

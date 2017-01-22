@@ -72,7 +72,7 @@
     <Compile Include="Model\ClassifiedImage.cs" />
     <Compile Include="Model\ProcessedImage.cs" />
     <Compile Include="Model\SvmLearningSet.cs" />
-    <Compile Include="Processing\Interfaces\ILocalBinaryPatternService.cs" />
+    <Compile Include="Processing\Interfaces\IImageProcessingService.cs" />
     <Compile Include="Processing\LocalBinaryPatternService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Interfaces\IImageReaderService.cs" />

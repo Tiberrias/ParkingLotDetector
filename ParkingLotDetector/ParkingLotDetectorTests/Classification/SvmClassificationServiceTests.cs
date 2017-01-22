@@ -36,7 +36,8 @@ namespace ParkingLotDetectorTests.Classification
                     new double[] {0, 0, 0, 1, 1},
                     new double[] {0, 0, 0, 0, 1}
                 },
-                Outputs = new List<int>() { 1, 1, 1, 1, 0, 0, 0, 0 }
+                Outputs = new List<int>() { 1, 1, 1, 1, 0, 0, 0, 0 },
+                Size = 8
             };
             ProcessedImage processedImage = new ProcessedImage() {Data = new double[] {0, 1, 1, 0, 0}};
 
