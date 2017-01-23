@@ -5,7 +5,7 @@ namespace StatisticalAnalysis.Model
 {
     public class AnalysisResults
     {
-        public int TotalSetSize;
+        public int TotalSetSize => LearningSetSize + BenchmarkSetSize;
 
         public int LearningSetSize;
         public int OccupiedInLearningSet;

@@ -15,7 +15,7 @@ namespace ParkingLotDetector.Processing
             localBinaryPattern.ProcessImage(bitmap);
 
             double[] result = localBinaryPattern.Histograms[0, 0].ToDouble();
-
+            
             ProcessedImage processedImage = new ProcessedImage() {Data = result};
             return processedImage;
         }

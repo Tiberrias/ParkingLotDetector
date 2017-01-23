@@ -15,8 +15,24 @@ namespace StatisticalAnalysis.Services
 
             foreach (var filePath in filePaths)
             {
-                bool isOccupied = filePath.Contains("Occupied");
-                resultList.Add(new ClassificationItem() {Path = filePath, AfterClassification = false, IsOccupied = isOccupied});
+                if (filePath.Contains("Occupied"))
+                {
+                    resultList.Add(new ClassificationItem()
+                    {
+                        Path = filePath,
+                        AfterClassification = false,
+                        IsOccupied = true
+                    });
+                }
+                else if (filePath.Contains("Empty"))
+                {
+                    resultList.Add(new ClassificationItem()
+                    {
+                        Path = filePath,
+                        AfterClassification = false,
+                        IsOccupied = false
+                    });
+                }
             }
 
             return  resultList;

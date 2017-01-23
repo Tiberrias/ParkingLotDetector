@@ -77,7 +77,7 @@ namespace StatisticalAnalysis.Services
             _loggingService.Log($"Classification Benchmark - Found benchmark set of size {benchmarkSet.Count} in: {timeElapsed} ms.");
             stopwatch.Restart();
 
-            _loggingService.Log("Classification Benchmark - Started processing learning set.");
+            _loggingService.Log("Classification Benchmark - Started processing learning set...");
             SvmLearningSet svmLearningSet = new SvmLearningSet()
             {
                 Inputs = new List<double[]>(learningSetSize),
@@ -102,7 +102,9 @@ namespace StatisticalAnalysis.Services
             _analysisService.SetLearningTime(timeElapsed);
             _loggingService.Log($"Classification Benchmark - Learned set of size {learningSet.Count} in: {timeElapsed} ms.");
             stopwatch.Restart();
-            
+
+            _loggingService.Log("Classification Benchmark - Started classifying benchmark set...");
+            var benchmarkSetProcessingCount = 0;
             foreach (var benchmarkSetItem in benchmarkSet)
             {
                 var processedImage =
@@ -110,6 +112,12 @@ namespace StatisticalAnalysis.Services
 
                 benchmarkSetItem.IsClassifiedAsOccupied = _svmClassificationService.Classify(processedImage) == 1;
                 benchmarkSetItem.AfterClassification = true;
+
+                benchmarkSetProcessingCount++;
+                if (benchmarkSetProcessingCount % 1000 == 0)
+                {
+                    _loggingService.Log($"Performed classification on {(benchmarkSetProcessingCount*100)/benchmarkSetSize}% of benchmark set.");
+                }
             }
 
             timeElapsed = stopwatch.ElapsedMilliseconds;

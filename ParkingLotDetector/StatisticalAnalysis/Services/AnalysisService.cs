@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using StatisticalAnalysis.Model;
 using StatisticalAnalysis.Services.Interfaces;
@@ -56,8 +57,22 @@ namespace StatisticalAnalysis.Services
             _currentResults.FalseEmpty =
                 benchmarkSetItems.Count(x => x.AfterClassification && !x.IsClassifiedAsOccupied && x.IsOccupied);
 
-            _currentResults.Accuracy = (_currentResults.TrueEmpty + _currentResults.TrueOccupied) /
-                                       (double)_currentResults.BenchmarkSetSize;
+            _currentResults.Accuracy = (double)(_currentResults.TrueEmpty + _currentResults.TrueOccupied) /
+                                       _currentResults.BenchmarkSetSize;
+
+            _currentResults.F1Score = (double)(2 * _currentResults.TrueOccupied) /
+                                      (2 * _currentResults.TrueOccupied + _currentResults.FalseOccupied +
+                                       _currentResults.FalseEmpty);
+
+            double x1 = (_currentResults.TrueOccupied * _currentResults.TrueEmpty -
+                         _currentResults.FalseOccupied * _currentResults.FalseEmpty);
+            double u1 = (_currentResults.TrueOccupied + _currentResults.FalseOccupied);
+            double u2 = (_currentResults.TrueOccupied + _currentResults.FalseEmpty);
+            double u3 = (_currentResults.TrueEmpty + _currentResults.FalseOccupied);
+            double u4 = (_currentResults.TrueEmpty + _currentResults.FalseEmpty);
+            double x2 = Math.Sqrt(u1 * u2 * u3 * u4);
+            _currentResults.MatthewsCoefficient = x1 / x2;
+
 
         }
     }

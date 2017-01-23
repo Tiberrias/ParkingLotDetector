@@ -75,7 +75,7 @@ namespace ParkingLotDetector.UI
             }
         }
 
-        private void OnLearnClick(object sender, System.EventArgs e)
+        private void OnLearnClick(object sender, EventArgs e)
         {
             if (_svmLearningSet == null)
                 return;
@@ -83,7 +83,7 @@ namespace ParkingLotDetector.UI
             backgroundLearner.RunWorkerAsync();
         }
 
-        private void OnLoadEmptyClick(object sender, System.EventArgs e)
+        private void OnLoadEmptyClick(object sender, EventArgs e)
         {
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
@@ -97,7 +97,7 @@ namespace ParkingLotDetector.UI
             }
         }
 
-        private void OnLoadOccupiedClick(object sender, System.EventArgs e)
+        private void OnLoadOccupiedClick(object sender, EventArgs e)
         {
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
@@ -111,26 +111,19 @@ namespace ParkingLotDetector.UI
             }
         }
 
-        private void OnClassifyClick(object sender, System.EventArgs e)
+        private void OnClassifyClick(object sender, EventArgs e)
         {
             if (openImageDialog.ShowDialog() == DialogResult.OK)
             {
                 var filename = openImageDialog.FileName;
                 Bitmap bitmap = _imageReaderService.GetBitmap(filename);
                 var processedImage = _imageProcessingService.Process(bitmap);
-                _loggingService.Log($"Processed image for classification");
+                _loggingService.Log("Processed image for classification");
 
                 var classificationresult = _svmClassificationService.Classify(processedImage);
                 _loggingService.Log($"Classified image as {classificationresult}");
 
-                if (classificationresult == 0)
-                {
-                    labelResult.Text = "Unoccupied";
-                }
-                else
-                {
-                    labelResult.Text = "Occupied";
-                }
+                labelResult.Text = classificationresult == 0 ? "Unoccupied" : "Occupied";
 
             }
         }
@@ -181,8 +174,9 @@ namespace ParkingLotDetector.UI
                 {
                     return;
                 }
-                var learningSetSize = (int)numericUpDownLearningSetSize.Value;
-                var benchmarkSetSize = (int)numericUpDownBenchmarkSetSize.Value;
+
+                var learningSetSize = (int)numericUpDownLearningSetSize.Value != 0 ? (int)numericUpDownLearningSetSize.Value : classificationItems.Count/10;
+                var benchmarkSetSize = (int)numericUpDownBenchmarkSetSize.Value != 0 ? (int)numericUpDownBenchmarkSetSize.Value : classificationItems.Count - learningSetSize;
 
                 Tuple<List<ClassificationItem>, int, int> benchmarkDefinition =
                     new Tuple<List<ClassificationItem>, int, int>(classificationItems, learningSetSize, benchmarkSetSize);
