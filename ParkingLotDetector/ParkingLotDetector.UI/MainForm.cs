@@ -44,7 +44,11 @@ namespace ParkingLotDetector.UI
             _loggingService.MessageLogged += OnMessageLogged;
 
             _imageReaderService = new ImageReaderService();
-            _imageProcessingService = new LocalBinaryPatternService();
+            //_imageProcessingService = new LocalBinaryPatternService();
+            _imageProcessingService = new CornerDetectionService();
+            //_imageProcessingService = new LocalBinaryPatternOptimizationService();
+            //_imageProcessingService = new CombinedProcessingService();
+
             _multiReaderService = new MultiReaderService(_imageReaderService);
 
             _svmClassificationService = new SvmClassificationService(_loggingService);
@@ -188,7 +192,15 @@ namespace ParkingLotDetector.UI
         {
             var parameters = e.Argument as Tuple<List<ClassificationItem>, int, int>;
 
-            _massClassificationService.ClassificationBenchmark(parameters.Item1, parameters.Item2, parameters.Item3);
+            var result = _massClassificationService.ClassificationBenchmark(parameters.Item1, parameters.Item2, parameters.Item3);
+            if (new Random().Next(1) == 2)
+            {
+               result = _massClassificationService.ClassificationBenchmarkWithoutLearning(parameters.Item1, parameters.Item3);
+            }
+            if (true)
+            {
+                result.ForEach(x => _loggingService.Log(x.ToString()));
+            }
         }
 
         private void OnBackgroundBenchmarkPerformerRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

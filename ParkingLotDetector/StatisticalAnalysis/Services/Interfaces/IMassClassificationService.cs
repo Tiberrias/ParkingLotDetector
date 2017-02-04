@@ -9,5 +9,8 @@ namespace StatisticalAnalysis.Services.Interfaces
             List<ClassificationItem> inputSet,
             int learningSetSize,
             int benchmarkSetSize);
+
+        List<ClassificationItem> ClassificationBenchmarkWithoutLearning(List<ClassificationItem> inputSet,
+            int benchmarkSetSize);
     }
 }

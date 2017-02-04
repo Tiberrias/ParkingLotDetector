@@ -73,7 +73,9 @@
     <Compile Include="Model\ProcessedImage.cs" />
     <Compile Include="Model\SvmLearningSet.cs" />
     <Compile Include="Processing\CornerDetectionService.cs" />
+    <Compile Include="Processing\CombinedProcessingService.cs" />
     <Compile Include="Processing\Interfaces\IImageProcessingService.cs" />
+    <Compile Include="Processing\LocalBinaryPatternOptimizationService.cs" />
     <Compile Include="Processing\LocalBinaryPatternService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Interfaces\IImageReaderService.cs" />

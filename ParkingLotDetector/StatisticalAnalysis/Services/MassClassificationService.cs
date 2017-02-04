@@ -78,6 +78,7 @@ namespace StatisticalAnalysis.Services
             stopwatch.Restart();
 
             _loggingService.Log("Classification Benchmark - Started processing learning set...");
+            var learningSetProcessingCount = 0;
             SvmLearningSet svmLearningSet = new SvmLearningSet()
             {
                 Inputs = new List<double[]>(learningSetSize),
@@ -90,7 +91,11 @@ namespace StatisticalAnalysis.Services
                    ProcessedImage = _imageProcessingService.Process(_imageReaderService.GetBitmap(learningSetItem.Path)),
                    Classification = learningSetItem.IsOccupied ? 1 : 0
                 });
-
+                learningSetProcessingCount++;
+                if (learningSetProcessingCount % 1000 == 0)
+                {
+                    _loggingService.Log($"Prepared {(learningSetProcessingCount * 100) / learningSetSize}% of learning set.");
+                }
             }
             timeElapsed = stopwatch.ElapsedMilliseconds;
             _loggingService.Log($"Classification Benchmark - Processed learning set of size {learningSet.Count} in: {timeElapsed} ms.");
@@ -125,6 +130,56 @@ namespace StatisticalAnalysis.Services
             _loggingService.Log($"Classification Benchmark - Classified set of size {benchmarkSet.Count} in: {timeElapsed} ms.");
             stopwatch.Stop();
             
+            _analysisService.AnalyzeBenchmarkSet(benchmarkSet);
+            _loggingService.Log("Classification Benchmark finished.");
+            return benchmarkSet;
+        }
+
+        public List<ClassificationItem> ClassificationBenchmarkWithoutLearning(List<ClassificationItem> inputSet, int benchmarkSetSize)
+        {
+            _loggingService.Log($"Classification Benchmark - Beginning benchmark for {_imageProcessingService.GetType()}");
+
+            HashSet<string> usedPaths = new HashSet<string>();
+            Random random = new Random();
+            List<ClassificationItem> benchmarkSet = new List<ClassificationItem>();
+
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
+            while (benchmarkSet.Count < benchmarkSetSize)
+            {
+                var newItem = new ClassificationItem(inputSet[random.Next(inputSet.Count)]);
+                if (!usedPaths.Contains(newItem.Path))
+                {
+                    benchmarkSet.Add(newItem);
+                    usedPaths.Add(newItem.Path);
+                }
+            }
+            var timeElapsed = stopwatch.ElapsedMilliseconds;
+            _loggingService.Log($"Classification Benchmark - Found benchmark set of size {benchmarkSet.Count} in: {timeElapsed} ms.");
+            stopwatch.Restart();
+            
+            _loggingService.Log("Classification Benchmark - Started classifying benchmark set...");
+            var benchmarkSetProcessingCount = 0;
+            foreach (var benchmarkSetItem in benchmarkSet)
+            {
+                var processedImage =
+                    _imageProcessingService.Process(_imageReaderService.GetBitmap(benchmarkSetItem.Path));
+
+                benchmarkSetItem.IsClassifiedAsOccupied = _svmClassificationService.Classify(processedImage) == 1;
+                benchmarkSetItem.AfterClassification = true;
+
+                benchmarkSetProcessingCount++;
+                if (benchmarkSetProcessingCount % 1000 == 0)
+                {
+                    _loggingService.Log($"Performed classification on {(benchmarkSetProcessingCount * 100) / benchmarkSetSize}% of benchmark set.");
+                }
+            }
+
+            timeElapsed = stopwatch.ElapsedMilliseconds;
+            _analysisService.SetClassificationTime(timeElapsed);
+            _loggingService.Log($"Classification Benchmark - Classified set of size {benchmarkSet.Count} in: {timeElapsed} ms.");
+            stopwatch.Stop();
+
             _analysisService.AnalyzeBenchmarkSet(benchmarkSet);
             _loggingService.Log("Classification Benchmark finished.");
             return benchmarkSet;

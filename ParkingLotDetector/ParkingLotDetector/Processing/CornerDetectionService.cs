@@ -12,10 +12,10 @@ namespace ParkingLotDetector.Processing
         private readonly HarrisCornersDetector _harrisCornersDetector;
         private readonly FastCornersDetector _fastCornersDetector;
 
-        public CornerDetectionService(HarrisCornersDetector harrisCornersDetector, FastCornersDetector fastCornersDetector)
+        public CornerDetectionService()
         {
-            _harrisCornersDetector = harrisCornersDetector;
-            _fastCornersDetector = fastCornersDetector;
+            _harrisCornersDetector = new HarrisCornersDetector();
+            _fastCornersDetector = new FastCornersDetector();
         }
         
         public ProcessedImage Process(Bitmap bitmap)

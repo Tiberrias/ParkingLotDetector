@@ -1,4 +1,6 @@
-﻿using Accord.Imaging;
+﻿using System.Configuration;
+using Accord.Imaging;
+using Accord.Imaging.Filters;
 using NUnit.Framework;
 using ParkingLotDetector.Processing;
 using ParkingLotDetector.Services;
@@ -19,7 +21,7 @@ namespace ParkingLotDetectorTests.Services
             FastCornersDetector fastCornersDetector = new FastCornersDetector();
             _imageReaderService = new ImageReaderService();
 
-            _cornerDetectionService = new CornerDetectionService(harrisCornersDetector, fastCornersDetector);
+            _cornerDetectionService = new CornerDetectionService();
         }
 
         [Test]
@@ -28,8 +30,13 @@ namespace ParkingLotDetectorTests.Services
             var image = _imageReaderService.GetBitmap(@"K:\TestSets\UFPR04\Sunny\2012-12-07\Occupied\2012-12-07_17_12_25#001.jpg");
             var processedImage =  _cornerDetectionService.Process(image);
 
+            CannyEdgeDetector x = new CannyEdgeDetector();
+
+            x.Apply(image);
+            
             Assert.Fail();
         }
 
+        
     }
 }
